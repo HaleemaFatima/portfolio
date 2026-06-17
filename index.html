@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haleema Fatima — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --surface: #111111;
+      --surface2: #1a1a1a;
+      --border: #2a2a2a;
+      --accent: #ff6600;
+      --accent2: #ff8c33;
+      --text: #f0f0f0;
+      --muted: #888888;
+      --tag-bg: #1a1200;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      color: var(--accent2);
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(ellipse, rgba(255,102,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 760px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      border: 1px solid rgba(255,102,0,0.4);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.08em;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: var(--accent2); }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #6b59ee; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-1px); }
+
+    /* SECTIONS */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .about-card h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+    .about-card p { color: var(--text); font-size: 0.95rem; }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.8rem;
+      color: var(--accent2);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .project-card:hover { border-color: rgba(255,102,0,0.5); transform: translateY(-2px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .project-card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .project-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .skill-group h3 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* LEADERSHIP */
+    .leader-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .leader-icon {
+      font-size: 1.75rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .leader-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .leader-card .role { font-size: 0.875rem; color: var(--accent2); margin-bottom: 0.5rem; }
+    .leader-card p { font-size: 0.875rem; color: var(--muted); }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-2px); }
+    .contact-link .icon { font-size: 1.1rem; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 0.75rem 1rem; }
+      .nav-links { gap: 1.25rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-reveal="left"] {
+      transform: translateX(-40px);
+    }
+    [data-reveal="right"] {
+      transform: translateX(40px);
+    }
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: translate(0);
+    }
+  </style>
+  <style>
+    /* ── INTRO LOADER ── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #080808;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #intro-wipe {
+      position: absolute;
+      inset: 0;
+      background: #ff6600;
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: 1;
+    }
+
+    .intro-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+    .intro-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #444;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .intro-label span {
+      color: #ff6600;
+    }
+
+    .intro-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .intro-name {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(3.5rem, 12vw, 10rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: #f0f0f0;
+      text-align: center;
+      overflow: hidden;
+    }
+    .intro-name-line {
+      display: block;
+      transform: translateY(110%);
+      opacity: 0;
+    }
+    .intro-name-line.orange { color: #ff6600; }
+
+    .intro-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      position: relative;
+      z-index: 2;
+    }
+    .intro-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(4rem, 10vw, 7rem);
+      font-weight: 500;
+      color: #1a1a1a;
+      line-height: 1;
+      transition: color 0.1s;
+      user-select: none;
+    }
+    .intro-tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #333;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: right;
+      line-height: 1.8;
+    }
+
+    body.intro-active {
+      overflow: hidden;
+    }
+    body.intro-done #intro {
+      display: none;
+    }
+  </style>
+</head>
+<body class="intro-active">
+
+  <!-- INTRO LOADER -->
+  <div id="intro">
+    <div id="intro-wipe"></div>
+
+    <div class="intro-top">
+      <span class="intro-label">Portfolio <span>©</span> 2025</span>
+      <span class="intro-label">Karachi, <span>PK</span></span>
+    </div>
+
+    <div class="intro-center">
+      <div class="intro-name">
+        <span class="intro-name-line">HALEEMA</span>
+        <span class="intro-name-line orange">FATIMA</span>
+      </div>
+    </div>
+
+    <div class="intro-bottom">
+      <div class="intro-counter" id="intro-counter">0</div>
+      <div class="intro-tagline">
+        CS Student<br/>
+        AI · Automation · Full-Stack
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const counter = document.getElementById('intro-counter');
+      const nameLines = document.querySelectorAll('.intro-name-line');
+      const wipe = document.getElementById('intro-wipe');
+      const intro = document.getElementById('intro');
+
+      let count = 0;
+      const total = 100;
+      const duration = 2000;
+      const start = performance.now();
+
+      // ease function — fast then slow
+      function easeInOutExpo(t) {
+        return t === 0 ? 0 : t === 1 ? 1 :
+          t < 0.5 ? Math.pow(2, 20 * t - 10) / 2
+                  : (2 - Math.pow(2, -20 * t + 10)) / 2;
+      }
+
+      // animate name lines in at ~40%
+      let nameShown = false;
+
+      function tick(now) {
+        const elapsed = now - start;
+        const raw = Math.min(elapsed / duration, 1);
+        const eased = easeInOutExpo(raw);
+        const val = Math.floor(eased * total);
+
+        counter.textContent = val;
+
+        // dim counter color as it fills
+        const grey = Math.floor(26 + eased * 60);
+        counter.style.color = `rgb(${grey},${grey},${grey})`;
+
+        // slide name in at 40%
+        if (!nameShown && eased >= 0.4) {
+          nameShown = true;
+          nameLines.forEach((el, i) => {
+            el.style.transition = `transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.12}s, opacity 0.5s ease ${i * 0.12}s`;
+            el.style.transform = 'translateY(0)';
+            el.style.opacity = '1';
+          });
+        }
+
+        if (raw < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          counter.textContent = '100';
+          // brief pause then wipe
+          setTimeout(startWipe, 300);
+        }
+      }
+
+      function startWipe() {
+        wipe.style.transition = 'transform 0.55s cubic-bezier(0.76,0,0.24,1)';
+        wipe.style.transform = 'scaleX(1)';
+
+        wipe.addEventListener('transitionend', () => {
+          // wipe out to the right
+          wipe.style.transformOrigin = 'right';
+          wipe.style.transition = 'transform 0.55s cubic-bezier(0.76,0,0.24,1) 0.05s';
+          wipe.style.transform = 'scaleX(0)';
+
+          wipe.addEventListener('transitionend', () => {
+            document.body.classList.remove('intro-active');
+            document.body.classList.add('intro-done');
+          }, { once: true });
+        }, { once: true });
+      }
+
+      requestAnimationFrame(tick);
+    })();
+  </script>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">haleema.dev</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge" data-reveal>CS Student · Karachi, Pakistan</div>
+      <h1 data-reveal>Hi, I'm <span>Haleema Fatima</span></h1>
+      <p data-reveal>Computer Science student building AI workflows, full-stack apps, and automation pipelines. Passionate about Formula 1, writing, and tech communities.</p>
+      <div class="hero-links" data-reveal>
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="https://github.com/HaleemaFatima" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        <a href="https://linkedin.com/in/haleema-fatima-271336326" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label" data-reveal="left">// about</div>
+    <h2 class="section-title" data-reveal="left">A bit about me</h2>
+    <div class="about-grid">
+      <div class="about-card" data-reveal data-delay="0">
+        <h3>Education</h3>
+        <p><strong>B.Sc. Computer Science</strong><br/>3rd Year Student · 2023 – Present<br/>Karachi, Pakistan</p>
+      </div>
+      <div class="about-card" data-reveal data-delay="100">
+        <h3>Languages</h3>
+        <p>English (Professional) · Turkish (Intermediate) · Spanish (Beginner)</p>
+      </div>
+      <div class="about-card" data-reveal data-delay="200">
+        <h3>Interests</h3>
+        <div class="tag-list">
+          <span class="tag">Formula 1</span>
+          <span class="tag">Writing</span>
+          <span class="tag">Reading</span>
+          <span class="tag">AI & Automation</span>
+          <span class="tag">Community</span>
+        </div>
+      </div>
+      <div class="about-card" data-reveal data-delay="300">
+        <h3>Currently</h3>
+        <p>Building automation workflows with n8n, exploring AI integrations, and contributing to the Microsoft Learn Student Ambassadors community.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label" data-reveal="left">// projects</div>
+    <h2 class="section-title" data-reveal="left">Things I've built</h2>
+    <div class="projects-grid">
+
+      <div class="project-card" data-reveal data-delay="0">
+        <h3>AI Hiking Weather Assistant</h3>
+        <p>End-to-end automation in n8n integrating Google Calendar, Gmail, Sheets &amp; Weather APIs. An AI assistant that sends personalized email recommendations based on upcoming hikes.</p>
+        <div class="project-tags">
+          <span class="project-tag">n8n</span>
+          <span class="project-tag">Groq LLM</span>
+          <span class="project-tag">OAuth</span>
+          <span class="project-tag">Google Workspace</span>
+          <span class="project-tag">Weather API</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-reveal data-delay="100">
+        <h3>Gmail to Google Sheets AI Workflow</h3>
+        <p>n8n workflow triggered by Gmail that pipes incoming email data through OpenRouter's LLM via HTTP request, structures key fields, and appends clean records to Google Sheets.</p>
+        <div class="project-tags">
+          <span class="project-tag">n8n</span>
+          <span class="project-tag">OpenRouter API</span>
+          <span class="project-tag">Gmail</span>
+          <span class="project-tag">Google Sheets</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-reveal data-delay="200">
+        <h3>World Cup Match Reminder</h3>
+        <p>Scheduled n8n workflow that fetches match data from TheSportsDB API, normalizes fixtures, detects matches starting soon, prevents duplicate reminders, and sends Gmail alerts.</p>
+        <div class="project-tags">
+          <span class="project-tag">n8n</span>
+          <span class="project-tag">Sports API</span>
+          <span class="project-tag">Gmail</span>
+          <span class="project-tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-reveal data-delay="0">
+        <h3>GrandPrix81 — F1 Strategy Simulator</h3>
+        <p>Deployed F1 race strategy simulator with Gemini AI insights, tire degradation logic, safety car windows, pit-stop modes, and Recharts data visualizations.</p>
+        <div class="project-tags">
+          <span class="project-tag">Next.js</span>
+          <span class="project-tag">Gemini API</span>
+          <span class="project-tag">Recharts</span>
+          <span class="project-tag">TypeScript</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-reveal data-delay="100">
+        <h3>F1 Ticket Booking System</h3>
+        <p>Full-stack ticket purchasing application with a Supabase/SQL backend and a React + TypeScript + Tailwind CSS frontend built with Vite.</p>
+        <div class="project-tags">
+          <span class="project-tag">React</span>
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">Supabase</span>
+          <span class="project-tag">Tailwind CSS</span>
+          <span class="project-tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-reveal data-delay="200">
+        <h3>F1 Telemetry &amp; Lap Time Analyzer</h3>
+        <p>FastF1-based analyzer with season, Grand Prix, and driver inputs to compare fastest laps, sector gaps, speed traces, braking points, and lap-by-lap pace evolution.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">FastF1</span>
+          <span class="project-tag">Pandas</span>
+          <span class="project-tag">Matplotlib</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-reveal data-delay="0">
+        <h3>Hand Tracking System</h3>
+        <p>Real-time hand tracking with OpenCV &amp; MediaPipe featuring gesture recognition for touchless interaction prototyping.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">OpenCV</span>
+          <span class="project-tag">MediaPipe</span>
+          <span class="project-tag">Computer Vision</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label" data-reveal="left">// skills</div>
+    <h2 class="section-title" data-reveal="left">What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-group" data-reveal data-delay="0">
+        <h3>Languages</h3>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">C/C++</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group" data-reveal data-delay="80">
+        <h3>Frontend</h3>
+        <div class="tag-list">
+          <span class="tag">React</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Vite</span>
+          <span class="tag">JavaFX</span>
+        </div>
+      </div>
+      <div class="skill-group" data-reveal data-delay="160">
+        <h3>Backend & Data</h3>
+        <div class="tag-list">
+          <span class="tag">Supabase</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">FastF1</span>
+        </div>
+      </div>
+      <div class="skill-group" data-reveal data-delay="240">
+        <h3>Automation & AI</h3>
+        <div class="tag-list">
+          <span class="tag">n8n</span>
+          <span class="tag">Groq LLM</span>
+          <span class="tag">Gemini API</span>
+          <span class="tag">OpenRouter</span>
+          <span class="tag">OAuth</span>
+        </div>
+      </div>
+      <div class="skill-group" data-reveal data-delay="320">
+        <h3>Tools</h3>
+        <div class="tag-list">
+          <span class="tag">Git</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">MediaPipe</span>
+          <span class="tag">Matplotlib</span>
+        </div>
+      </div>
+      <div class="skill-group" data-reveal data-delay="400">
+        <h3>Concepts</h3>
+        <div class="tag-list">
+          <span class="tag">DSA</span>
+          <span class="tag">OOP</span>
+          <span class="tag">Project Mgmt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- LEADERSHIP -->
+  <section id="leadership">
+    <div class="section-label" data-reveal="left">// leadership</div>
+    <h2 class="section-title" data-reveal="left">Community & Volunteering</h2>
+    <div class="leader-card" data-reveal>
+      <div>
+        <h3>MLSA Management Team</h3>
+        <div class="role">Microsoft Learn Student Ambassadors · 2025 – Present</div>
+        <p>Contributed to event planning, community outreach, and workshops for students across the tech community.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label" data-reveal="left">// contact</div>
+    <h2 class="section-title" data-reveal="left">Get in touch</h2>
+    <div class="contact-grid">
+      <a href="mailto:halimahere7@gmail.com" class="contact-link" data-reveal data-delay="0">
+        <span>halimahere7@gmail.com</span>
+      </a>
+      <a href="https://github.com/HaleemaFatima" target="_blank" rel="noopener" class="contact-link" data-reveal data-delay="80">
+        <span>github.com/HaleemaFatima</span>
+      </a>
+      <a href="https://linkedin.com/in/haleema-fatima-271336326" target="_blank" rel="noopener" class="contact-link" data-reveal data-delay="160">
+        <span>LinkedIn Profile</span>
+      </a>
+      <a href="tel:+923153280018" class="contact-link" data-reveal data-delay="240">
+        <span>+92 315 3280018</span>
+      </a>
+    </div>
+  </section>
+
+  <footer data-reveal>
+    <p>Built by Haleema Fatima · 2025</p>
+  </footer>
+
+  <script>
+    (function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const delay = parseInt(el.dataset.delay || '0', 10);
+          setTimeout(() => el.classList.add('revealed'), delay);
+          observer.unobserve(el);
+        });
+      }, { threshold: 0.12 });
+
+      function observeAll() {
+        document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+      }
+
+      // Wait for intro to finish before observing so hero animates in fresh
+      const body = document.body;
+      if (body.classList.contains('intro-active')) {
+        const mo = new MutationObserver(() => {
+          if (body.classList.contains('intro-done')) {
+            mo.disconnect();
+            observeAll();
+          }
+        });
+        mo.observe(body, { attributes: true, attributeFilter: ['class'] });
+      } else {
+        observeAll();
+      }
+    })();
+  </script>
+
+</body>
+</html>
